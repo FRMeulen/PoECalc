@@ -21,7 +21,7 @@ public class Calculator {
 	
 	//Methods
 	public void calculateDifferenceInMinutes(){
-		if(lastCycle.getTime() > currentDate.getTime()){
+	    if(lastCycle.getTime() > currentDate.getTime()){
 			System.out.println("Error! Last cycle finished in the future. Consider checking 'Last Known Cycle.txt' for incorrect date and time.");
 		}
 		differenceInMinutes = (currentDate.getTime() - lastCycle.getTime()) / 60000;
@@ -48,33 +48,15 @@ public class Calculator {
 		if(tempDifferenceInMinutes > 100){
 			isNight = true;
 		}
-		lastCycle.setTime(currentDate.getTime() - (tempDifferenceInMinutes * 60000));
-		//System.out.println("A total of "+differenceInMinutes+" minutes between last known cycle and current time.");
-		//System.out.println("That means "+counter+" cycle(s) completed between last known cycle and current time.");
-		
-		if(isNight){
-			//System.out.println("That means it is night with "+ (150-tempDifferenceInMinutes)+" minutes until day.");
-		}
-		
 		else{
-			//System.out.println("That means it is day with "+ (100-tempDifferenceInMinutes)+" minutes until night.");
+			isNight = false;
 		}
-		
-		//System.out.println("The last cycle started: "+format.format(lastCycle));
+
+		lastCycle.setTime(currentDate.getTime() - (tempDifferenceInMinutes * 60000));
 		return format.format(lastCycle);
 	}
 	
-	public void testCalculator(){
-		System.out.println(format.format(currentDate));
-		System.out.println(format.format(lastCycle));
-		System.out.println(differenceInMinutes);
-	}
-	
 	//Getters
-	public long getDifferenceInMinutes(){
-		return differenceInMinutes;
-	}
-	
 	public int getMinutesIntoCurrentCycle(){
 		return minutesIntoCurrentCycle;
 	}

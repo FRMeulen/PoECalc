@@ -57,13 +57,16 @@ public class GuiBody extends JFrame {
 	//Methods
 	public void refreshGui(int minutesIntoCurrentCycle, boolean isNight){
 		this.invalidate();
-		
+
+		int minutesUntilDay = 150 - minutesIntoCurrentCycle;
+		int minutesUntilNight = 100 - minutesIntoCurrentCycle;
+
 		if(isNight){
 			labelDayOrNight.setText("NIGHT");
 			labelDayOrNight.setForeground(Color.WHITE);
 			centerPanel.setBackground(Color.BLACK);
 			
-			labelTimeRemaining.setText(150 - minutesIntoCurrentCycle + " minutes until day");
+			labelTimeRemaining.setText(minutesUntilDay + " minutes until day");
 			labelTimeRemaining.setForeground(Color.WHITE);
 			bottomPanel.setBackground(Color.BLACK);
 		}
@@ -72,7 +75,7 @@ public class GuiBody extends JFrame {
 			labelDayOrNight.setForeground(Color.BLACK);
 			centerPanel.setBackground(Color.WHITE);
 			
-			labelTimeRemaining.setText(100 - minutesIntoCurrentCycle + " minutes until night");
+			labelTimeRemaining.setText(minutesUntilNight + " minutes until night");
 			labelTimeRemaining.setForeground(Color.BLACK);
 			bottomPanel.setBackground(Color.WHITE);
 		}
