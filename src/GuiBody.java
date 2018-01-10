@@ -1,16 +1,12 @@
 //Imports
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
 import java.awt.Font;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.GridBagConstraints;
-import java.awt.CardLayout;
 import java.awt.Color;
 
 //Class
@@ -18,40 +14,44 @@ public class GuiBody extends JFrame {
 	
 	//Fields
 	private JPanel contentPane;
-	
-	private JPanel centerPanel = new JPanel();
-	private JPanel bottomPanel = new JPanel();
-	
+
 	private JLabel labelDayOrNight = new JLabel("Default: DAY");
+    private JLabel dividerLabel = new JLabel("____________________________________________________________");
+    private JLabel labelTimeForHunt = new JLabel("Default: Start teralyst hunt? YES");
 	private JLabel labelTimeRemaining = new JLabel("Default: xxx minutes until day");
+	private JLabel labelLureTime = new JLabel("Default: xxx minutes until lures despawn");
 	
 	//Constructor
 	public GuiBody(int minutesIntoCurrentCycle, boolean isNight) {
-			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//Specify what to do on program closure
-			setBounds(100, 100, 450, 300);	//Set bounds for GUI
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//Specify what to do on program closure
+		setBounds(100, 100, 375, 225);	//Set bounds for GUI
 			
-			contentPane = new JPanel();	//Create content pane
-			contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));	//Set borders
-			setContentPane(contentPane);	//Assign content pane as GUI's contentPane
-			contentPane.setLayout(new BorderLayout(0, 0));	//Set layout for content pane
+		contentPane = new JPanel();	//Create content pane
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));	//Set borders
+		setContentPane(contentPane);	//Assign content pane as GUI's contentPane
+		contentPane.setLayout(new GridLayout(5, 1));	//Set layout for content pane
 			
-			//Center panel
-			contentPane.add(centerPanel, BorderLayout.CENTER);	//Add to content pane
-			centerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));	//Set layout
-			
-			//Day or night label
-			labelDayOrNight.setFont(new Font("Arial Black", Font.PLAIN, 40));	//Set font
-			centerPanel.add(labelDayOrNight);	//Add to center panel
-			
-			//Bottom panel
-			contentPane.add(bottomPanel, BorderLayout.SOUTH);	//Add to content pane
-			
-			//Time remaining label
-			labelTimeRemaining.setFont(new Font("Arial Black", Font.PLAIN, 20));	//Set font
-			bottomPanel.add(labelTimeRemaining);	//Add to bottom panel
-		
-			this.refreshGui(minutesIntoCurrentCycle, isNight);
-			this.setVisible(true);
+		//Day or night label
+		labelDayOrNight.setFont(new Font("Arial Black", Font.PLAIN, 40));	//Set font
+		contentPane.add(labelDayOrNight);	//Add to content pane
+
+        //Divider label
+        contentPane.add(dividerLabel); //Label to divide screen
+
+		//Time for hunt label
+		labelTimeForHunt.setFont(new Font("Arial Black", Font.PLAIN, 20)); //Set font
+		contentPane.add(labelTimeForHunt);	//Add to content pane
+
+		//Time remaining label
+		labelTimeRemaining.setFont(new Font("Arial Black", Font.PLAIN, 20));	//Set font
+		contentPane.add(labelTimeRemaining);	//Add to content pane
+
+        //Lure time label
+        labelLureTime.setFont(new Font("Arial Black", Font.PLAIN, 20)); //Set font
+        contentPane.add(labelLureTime);
+
+		this.refreshGui(minutesIntoCurrentCycle, isNight);
+		this.setVisible(true);
 	}
 	
 	//Methods
@@ -64,20 +64,31 @@ public class GuiBody extends JFrame {
 		if(isNight){
 			labelDayOrNight.setText("NIGHT");
 			labelDayOrNight.setForeground(Color.WHITE);
-			centerPanel.setBackground(Color.BLACK);
-			
+			contentPane.setBackground(Color.BLACK);
+
+			if(minutesUntilDay < 15){
+				labelTimeForHunt.setText("Start teralyst hunt? NO");
+			}
+			else{
+				labelTimeForHunt.setText("Start teralyst hunt? YES");
+			}
+			labelTimeForHunt.setForeground(Color.WHITE);
+			labelLureTime.setForeground(Color.WHITE);
+			labelLureTime.setText(minutesUntilDay - 5 + " minutes until lures despawn");
 			labelTimeRemaining.setText(minutesUntilDay + " minutes until day");
 			labelTimeRemaining.setForeground(Color.WHITE);
-			bottomPanel.setBackground(Color.BLACK);
 		}
 		else{
 			labelDayOrNight.setText("DAY");
 			labelDayOrNight.setForeground(Color.BLACK);
-			centerPanel.setBackground(Color.WHITE);
-			
+			contentPane.setBackground(Color.WHITE);
+
+			labelTimeForHunt.setText("Start teralyst hunt? NO");
+            labelTimeForHunt.setForeground(Color.BLACK);
+            labelLureTime.setForeground(Color.BLACK);
+            labelLureTime.setText(minutesUntilNight - 5 + " minutes until lures spawn");
 			labelTimeRemaining.setText(minutesUntilNight + " minutes until night");
 			labelTimeRemaining.setForeground(Color.BLACK);
-			bottomPanel.setBackground(Color.WHITE);
 		}
 		this.revalidate();
 		this.repaint();
