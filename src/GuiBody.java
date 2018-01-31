@@ -74,7 +74,12 @@ public class GuiBody extends JFrame {
 			}
 			labelTimeForHunt.setForeground(Color.WHITE);
 			labelLureTime.setForeground(Color.WHITE);
-			labelLureTime.setText(minutesUntilDay - 5 + " minutes until lures despawn");
+			if(minutesUntilDay - 5 < 0){
+				labelLureTime.setText("Lures have despawned!");
+			}
+			else{
+				labelLureTime.setText(minutesUntilDay - 5 + " minutes until lures despawn");
+			}
 			labelTimeRemaining.setText(minutesUntilDay + " minutes until day");
 			labelTimeRemaining.setForeground(Color.WHITE);
 		}
@@ -86,7 +91,7 @@ public class GuiBody extends JFrame {
 			labelTimeForHunt.setText("Start teralyst hunt? NO");
             labelTimeForHunt.setForeground(Color.BLACK);
             labelLureTime.setForeground(Color.BLACK);
-            labelLureTime.setText(minutesUntilNight - 5 + " minutes until lures spawn");
+            labelLureTime.setText(minutesUntilNight + " minutes until lures spawn");
 			labelTimeRemaining.setText(minutesUntilNight + " minutes until night");
 			labelTimeRemaining.setForeground(Color.BLACK);
 		}
