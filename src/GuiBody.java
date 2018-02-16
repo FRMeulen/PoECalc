@@ -67,18 +67,24 @@ public class GuiBody extends JFrame {
 			contentPane.setBackground(Color.BLACK);
 
 			if(minutesUntilDay < 15){
-				labelTimeForHunt.setText("Start teralyst hunt? NO");
+				labelTimeForHunt.setText("Time for: NONE");
 			}
+			else if(minutesUntilDay > 15 && minutesUntilDay < 20){
+			    labelTimeForHunt.setText("Time for: TERALYST");
+            }
+            else if(minutesUntilDay > 20 && minutesUntilDay < 30){
+			    labelTimeForHunt.setText("Time for: GANTULYST");
+            }
 			else{
-				labelTimeForHunt.setText("Start teralyst hunt? YES");
+				labelTimeForHunt.setText("Time for: HYDROLYST");
 			}
 			labelTimeForHunt.setForeground(Color.WHITE);
 			labelLureTime.setForeground(Color.WHITE);
-			if(minutesUntilDay - 5 < 0){
+			if(minutesUntilDay - 2 < 0){
 				labelLureTime.setText("Lures have despawned!");
 			}
 			else{
-				labelLureTime.setText(minutesUntilDay - 5 + " minutes until lures despawn");
+				labelLureTime.setText(minutesUntilDay - 2 + " minutes until lures despawn");
 			}
 			labelTimeRemaining.setText(minutesUntilDay + " minutes until day");
 			labelTimeRemaining.setForeground(Color.WHITE);
@@ -88,7 +94,7 @@ public class GuiBody extends JFrame {
 			labelDayOrNight.setForeground(Color.BLACK);
 			contentPane.setBackground(Color.WHITE);
 
-			labelTimeForHunt.setText("Start teralyst hunt? NO");
+			labelTimeForHunt.setText("No eidolon during the day!");
             labelTimeForHunt.setForeground(Color.BLACK);
             labelLureTime.setForeground(Color.BLACK);
             labelLureTime.setText(minutesUntilNight + " minutes until lures spawn");
