@@ -17,9 +17,8 @@ public class GuiBody extends JFrame {
 
 	private JLabel labelDayOrNight = new JLabel("Default: DAY");
     private JLabel dividerLabel = new JLabel("____________________________________________________________");
-    private JLabel labelTimeForHunt = new JLabel("Default: Start teralyst hunt? YES");
+    private JLabel labelWhatToDo = new JLabel("Default: Start teralyst hunt? YES");
 	private JLabel labelTimeRemaining = new JLabel("Default: xxx minutes until day");
-	private JLabel labelLureTime = new JLabel("Default: xxx minutes until lures despawn");
 	
 	//Constructor
 	public GuiBody(int minutesIntoCurrentCycle, boolean isNight) {
@@ -29,7 +28,7 @@ public class GuiBody extends JFrame {
 		contentPane = new JPanel();	//Create content pane
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));	//Set borders
 		setContentPane(contentPane);	//Assign content pane as GUI's contentPane
-		contentPane.setLayout(new GridLayout(5, 1));	//Set layout for content pane
+		contentPane.setLayout(new GridLayout(4, 1));	//Set layout for content pane
 			
 		//Day or night label
 		labelDayOrNight.setFont(new Font("Arial Black", Font.PLAIN, 40));	//Set font
@@ -39,16 +38,12 @@ public class GuiBody extends JFrame {
         contentPane.add(dividerLabel); //Label to divide screen
 
 		//Time for hunt label
-		labelTimeForHunt.setFont(new Font("Arial Black", Font.PLAIN, 20)); //Set font
-		contentPane.add(labelTimeForHunt);	//Add to content pane
+		labelWhatToDo.setFont(new Font("Arial Black", Font.PLAIN, 20)); //Set font
+		contentPane.add(labelWhatToDo);	//Add to content pane
 
 		//Time remaining label
 		labelTimeRemaining.setFont(new Font("Arial Black", Font.PLAIN, 20));	//Set font
 		contentPane.add(labelTimeRemaining);	//Add to content pane
-
-        //Lure time label
-        labelLureTime.setFont(new Font("Arial Black", Font.PLAIN, 20)); //Set font
-        contentPane.add(labelLureTime);
 
 		this.refreshGui(minutesIntoCurrentCycle, isNight);
 		this.setVisible(true);
@@ -66,26 +61,19 @@ public class GuiBody extends JFrame {
 			labelDayOrNight.setForeground(Color.WHITE);
 			contentPane.setBackground(Color.BLACK);
 
-			if(minutesUntilDay < 15){
-				labelTimeForHunt.setText("Time for: NONE");
+			if(minutesUntilDay < 10){
+				labelWhatToDo.setText("Time to search wisps");
 			}
-			else if(minutesUntilDay > 15 && minutesUntilDay < 20){
-			    labelTimeForHunt.setText("Time for: TERALYST");
+			else if(minutesUntilDay > 10 && minutesUntilDay < 20){
+				labelWhatToDo.setText("Time to pwn TERALYST");
             }
             else if(minutesUntilDay > 20 && minutesUntilDay < 30){
-			    labelTimeForHunt.setText("Time for: GANTULYST");
+				labelWhatToDo.setText("Time to pwn GANTULYST");
             }
 			else{
-				labelTimeForHunt.setText("Time for: HYDROLYST");
+				labelWhatToDo.setText("Time to pwn HYDROLYST");
 			}
-			labelTimeForHunt.setForeground(Color.WHITE);
-			labelLureTime.setForeground(Color.WHITE);
-			if(minutesUntilDay - 2 < 0){
-				labelLureTime.setText("Lures have despawned!");
-			}
-			else{
-				labelLureTime.setText(minutesUntilDay - 2 + " minutes until lures despawn");
-			}
+			labelWhatToDo.setForeground(Color.WHITE);
 			labelTimeRemaining.setText(minutesUntilDay + " minutes until day");
 			labelTimeRemaining.setForeground(Color.WHITE);
 		}
@@ -94,10 +82,8 @@ public class GuiBody extends JFrame {
 			labelDayOrNight.setForeground(Color.BLACK);
 			contentPane.setBackground(Color.WHITE);
 
-			labelTimeForHunt.setText("No eidolon during the day!");
-            labelTimeForHunt.setForeground(Color.BLACK);
-            labelLureTime.setForeground(Color.BLACK);
-            labelLureTime.setText(minutesUntilNight + " minutes until lures spawn");
+			labelWhatToDo.setText("Bounty time!");
+			labelWhatToDo.setForeground(Color.BLACK);
 			labelTimeRemaining.setText(minutesUntilNight + " minutes until night");
 			labelTimeRemaining.setForeground(Color.BLACK);
 		}
